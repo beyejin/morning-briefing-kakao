@@ -1,12 +1,12 @@
 # Morning Briefing Kakao Bot
 
-매일 아침 날씨, 대기질, Google Calendar 일정, 오늘의 뉴스, 옷 추천, 랜덤 아침 확언을 모아서 카카오톡 나에게 보내기로 전송하는 Python 프로젝트입니다.
+매일 아침 날씨, 대기질, iCloud Calendar 일정, 오늘의 뉴스, 옷 추천, 랜덤 아침 확언을 모아서 카카오톡 나에게 보내기로 전송하는 Python 프로젝트입니다.
 
 ## 기능
 
 - OpenWeather 날씨: 현재 온도, 체감온도, 최저/최고 온도, 강수 가능성, 바람
 - OpenWeather 대기질: AQI, PM10, PM2.5
-- Google Calendar: 비공개 ICS URL로 오늘 일정 조회
+- iCloud Calendar: 공유 ICS URL로 오늘 일정 조회
 - RSS 뉴스: 기본값은 Google News 한국 RSS
 - 옷 추천: 체감/최저기온, 비, 바람, 대기질 기반 규칙
 - 카카오톡: Kakao Message API `send me` endpoint 사용
@@ -27,13 +27,17 @@ DRY_RUN=true python3 -m morning_briefing.main
 - `BRIEFING_LATITUDE`: iPhone 단축어가 보낸 현재 위도. GitHub Secret으로 넣지 않아도 됩니다.
 - `BRIEFING_LONGITUDE`: iPhone 단축어가 보낸 현재 경도. GitHub Secret으로 넣지 않아도 됩니다.
 - `OPENWEATHER_API_KEY`: OpenWeather API 키
-- `GOOGLE_CALENDAR_ICS_URL`: Google Calendar 비공개 iCal 주소
+- `ICLOUD_CALENDAR_ICS_URL`: iCloud Calendar 공유 주소
+- `CALENDAR_ICS_URL`: 다른 ICS 캘린더 주소. iCloud/Google이 아닌 캘린더를 쓸 때 사용합니다.
+- `GOOGLE_CALENDAR_ICS_URL`: 예전 Google Calendar용 이름입니다. 남겨두면 fallback으로 읽습니다.
 - `KAKAO_ACCESS_TOKEN`: 카카오 로그인으로 발급받은 액세스 토큰
 - `RSS_FEEDS`: 쉼표로 구분한 RSS URL 목록. 비워두면 Google News 한국 RSS 사용
 
-## Google Calendar ICS URL
+## iCloud Calendar ICS URL
 
-Google Calendar 설정에서 원하는 캘린더의 "비공개 주소 iCal 형식" URL을 복사해 `GOOGLE_CALENDAR_ICS_URL`로 넣으면 됩니다. 이 URL은 비밀값이라 공개 저장소에 직접 커밋하면 안 됩니다.
+iPhone 또는 Mac Calendar 앱에서 사용할 캘린더를 공개 공유한 뒤 `webcal://...` 주소를 복사해 `ICLOUD_CALENDAR_ICS_URL`로 넣으면 됩니다. 코드가 `webcal://` 주소를 자동으로 `https://`로 바꿔 읽습니다.
+
+이 주소를 가진 사람은 해당 캘린더를 볼 수 있으니 GitHub Secret에만 넣고 코드에는 직접 커밋하지 마세요.
 
 ## Kakao 설정
 

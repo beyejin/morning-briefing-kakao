@@ -28,7 +28,7 @@ def build_briefing() -> str:
 
     weather = fetch_weather(settings.latitude, settings.longitude, settings.openweather_api_key)
     air = fetch_air_quality(settings.latitude, settings.longitude, settings.openweather_api_key)
-    events = _fetch_events(settings.google_calendar_ics_url, today, settings.timezone)
+    events = _fetch_events(settings.calendar_ics_url, today, settings.timezone)
     news = fetch_news(settings.rss_feeds)
     affirmation = random.choice(AFFIRMATIONS)
     outfit = recommend_outfit(weather, air)

@@ -1,0 +1,2 @@
+"""Morning briefing package."""
+

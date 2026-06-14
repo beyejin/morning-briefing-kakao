@@ -27,15 +27,23 @@ DRY_RUN=true python3 -m morning_briefing.main
 - `BRIEFING_LATITUDE`: iPhone 단축어가 보낸 현재 위도. GitHub Secret으로 넣지 않아도 됩니다.
 - `BRIEFING_LONGITUDE`: iPhone 단축어가 보낸 현재 경도. GitHub Secret으로 넣지 않아도 됩니다.
 - `OPENWEATHER_API_KEY`: OpenWeather API 키
-- `ICLOUD_CALENDAR_ICS_URL`: iCloud Calendar 공유 주소
-- `CALENDAR_ICS_URL`: 다른 ICS 캘린더 주소. iCloud/Google이 아닌 캘린더를 쓸 때 사용합니다.
+- `ICLOUD_CALENDAR_ICS_URLS`: iCloud Calendar 공유 주소 목록. 여러 캘린더는 쉼표로 구분합니다.
+- `ICLOUD_CALENDAR_ICS_URL`: iCloud Calendar 공유 주소 하나만 쓸 때의 예전 이름입니다. fallback으로 읽습니다.
+- `CALENDAR_ICS_URLS`: 다른 ICS 캘린더 주소 목록. iCloud/Google이 아닌 캘린더를 쓸 때 사용합니다.
+- `CALENDAR_ICS_URL`: 다른 ICS 캘린더 주소 하나만 쓸 때의 예전 이름입니다.
 - `GOOGLE_CALENDAR_ICS_URL`: 예전 Google Calendar용 이름입니다. 남겨두면 fallback으로 읽습니다.
 - `KAKAO_ACCESS_TOKEN`: 카카오 로그인으로 발급받은 액세스 토큰
 - `RSS_FEEDS`: 쉼표로 구분한 RSS URL 목록. 비워두면 Google News 한국 RSS 사용
 
 ## iCloud Calendar ICS URL
 
-iPhone 또는 Mac Calendar 앱에서 사용할 캘린더를 공개 공유한 뒤 `webcal://...` 주소를 복사해 `ICLOUD_CALENDAR_ICS_URL`로 넣으면 됩니다. 코드가 `webcal://` 주소를 자동으로 `https://`로 바꿔 읽습니다.
+iPhone 또는 Mac Calendar 앱에서 사용할 캘린더를 공개 공유한 뒤 `webcal://...` 주소를 복사해 `ICLOUD_CALENDAR_ICS_URLS`로 넣으면 됩니다. 여러 캘린더를 가져오려면 링크를 쉼표로 이어 붙입니다. 코드가 `webcal://` 주소를 자동으로 `https://`로 바꿔 읽습니다.
+
+예:
+
+```text
+ICLOUD_CALENDAR_ICS_URLS=webcal://p123-caldav.icloud.com/published/2/work,webcal://p123-caldav.icloud.com/published/2/personal,webcal://p123-caldav.icloud.com/published/2/study
+```
 
 이 주소를 가진 사람은 해당 캘린더를 볼 수 있으니 GitHub Secret에만 넣고 코드에는 직접 커밋하지 마세요.
 

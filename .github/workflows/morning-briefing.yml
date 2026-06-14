@@ -33,7 +33,9 @@ jobs:
           LATITUDE: ${{ secrets.LATITUDE }}
           LONGITUDE: ${{ secrets.LONGITUDE }}
           OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+          ICLOUD_CALENDAR_ICS_URLS: ${{ secrets.ICLOUD_CALENDAR_ICS_URLS }}
           ICLOUD_CALENDAR_ICS_URL: ${{ secrets.ICLOUD_CALENDAR_ICS_URL }}
+          CALENDAR_ICS_URLS: ${{ secrets.CALENDAR_ICS_URLS }}
           CALENDAR_ICS_URL: ${{ secrets.CALENDAR_ICS_URL }}
           GOOGLE_CALENDAR_ICS_URL: ${{ secrets.GOOGLE_CALENDAR_ICS_URL }}
           KAKAO_ACCESS_TOKEN: ${{ secrets.KAKAO_ACCESS_TOKEN }}

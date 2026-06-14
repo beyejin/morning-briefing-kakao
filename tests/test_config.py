@@ -29,7 +29,26 @@ class ConfigTests(unittest.TestCase):
         with patch.dict(os.environ, env, clear=True):
             settings = load_settings()
 
-        self.assertEqual(settings.calendar_ics_url, "https://p123-caldav.icloud.com/published/2/example")
+        self.assertEqual(settings.calendar_ics_urls, ["https://p123-caldav.icloud.com/published/2/example"])
+
+    def test_multiple_icloud_calendar_urls_are_normalized(self):
+        env = {
+            "ICLOUD_CALENDAR_ICS_URLS": (
+                "webcal://p123-caldav.icloud.com/published/2/work,"
+                " https://p123-caldav.icloud.com/published/2/personal"
+            )
+        }
+
+        with patch.dict(os.environ, env, clear=True):
+            settings = load_settings()
+
+        self.assertEqual(
+            settings.calendar_ics_urls,
+            [
+                "https://p123-caldav.icloud.com/published/2/work",
+                "https://p123-caldav.icloud.com/published/2/personal",
+            ],
+        )
 
 
 if __name__ == "__main__":

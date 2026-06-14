@@ -28,7 +28,7 @@ def build_briefing() -> str:
 
     weather = fetch_weather(settings.latitude, settings.longitude, settings.openweather_api_key)
     air = fetch_air_quality(settings.latitude, settings.longitude, settings.openweather_api_key)
-    events = _fetch_events(settings.calendar_ics_url, today, settings.timezone)
+    events = _fetch_events(settings.calendar_ics_urls, today, settings.timezone)
     news = fetch_news(settings.rss_feeds)
     affirmation = random.choice(AFFIRMATIONS)
     outfit = recommend_outfit(weather, air)
@@ -49,13 +49,16 @@ def main() -> int:
     return 0
 
 
-def _fetch_events(calendar_url: str | None, today, timezone_name: str):
-    if not calendar_url:
+def _fetch_events(calendar_urls: list[str], today, timezone_name: str):
+    if not calendar_urls:
         return []
-    try:
-        return parse_ics_events(get_text(calendar_url), today, timezone_name)
-    except HttpError:
-        return []
+    events = []
+    for calendar_url in calendar_urls:
+        try:
+            events.extend(parse_ics_events(get_text(calendar_url), today, timezone_name))
+        except HttpError:
+            continue
+    return sorted(events, key=lambda event: event.time_text)
 
 
 if __name__ == "__main__":

@@ -19,8 +19,8 @@ class Settings:
 def load_settings() -> Settings:
     return Settings(
         timezone=os.getenv("BRIEFING_TIMEZONE", "Asia/Seoul"),
-        latitude=_float_env("LATITUDE"),
-        longitude=_float_env("LONGITUDE"),
+        latitude=_coordinate_env("BRIEFING_LATITUDE", "LATITUDE"),
+        longitude=_coordinate_env("BRIEFING_LONGITUDE", "LONGITUDE"),
         openweather_api_key=os.getenv("OPENWEATHER_API_KEY"),
         google_calendar_ics_url=os.getenv("GOOGLE_CALENDAR_ICS_URL"),
         kakao_access_token=os.getenv("KAKAO_ACCESS_TOKEN"),
@@ -36,9 +36,12 @@ def _float_env(name: str) -> float | None:
     return float(value)
 
 
+def _coordinate_env(primary_name: str, fallback_name: str) -> float | None:
+    return _float_env(primary_name) if os.getenv(primary_name) else _float_env(fallback_name)
+
+
 def _rss_feeds() -> list[str]:
     raw = os.getenv("RSS_FEEDS")
     if raw:
         return [feed.strip() for feed in raw.split(",") if feed.strip()]
     return ["https://news.google.com/rss?hl=ko&gl=KR&ceid=KR:ko"]
-

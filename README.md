@@ -24,6 +24,8 @@ DRY_RUN=true python3 -m morning_briefing.main
 
 - `LATITUDE`: 위도
 - `LONGITUDE`: 경도
+- `BRIEFING_LATITUDE`: iPhone 단축어가 보낸 현재 위도. GitHub Secret으로 넣지 않아도 됩니다.
+- `BRIEFING_LONGITUDE`: iPhone 단축어가 보낸 현재 경도. GitHub Secret으로 넣지 않아도 됩니다.
 - `OPENWEATHER_API_KEY`: OpenWeather API 키
 - `GOOGLE_CALENDAR_ICS_URL`: Google Calendar 비공개 iCal 주소
 - `KAKAO_ACCESS_TOKEN`: 카카오 로그인으로 발급받은 액세스 토큰
@@ -42,3 +44,5 @@ Kakao Developers에서 앱을 만들고 카카오 로그인을 활성화한 뒤,
 ## GitHub Actions
 
 `.github/workflows/morning-briefing.yml`은 매일 UTC 21:30, 한국 시간 06:30에 실행됩니다. GitHub UI에서 `workflow_dispatch`로 수동 실행도 가능합니다.
+
+iPhone 단축어에서 현재 위치를 보내 실행하려면 [iPhone Shortcut Setup](docs/iphone-shortcut.md)을 참고합니다. 단축어가 보낸 위치가 있으면 그 좌표를 사용하고, 없으면 GitHub Secrets의 `LATITUDE`와 `LONGITUDE`를 사용합니다.
